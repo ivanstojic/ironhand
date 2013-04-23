@@ -14,6 +14,7 @@ ASMDIR=asm
 
 SOURCES:=$(wildcard $(SRCDIR)/*.c)
 ASMS:=$(wildcard $(ASMDIR)/*.s)
+INCLUDES:=$(wildcard $(ASMDIR)/*.S)
 
 COBJ:=$(SOURCES:$(SRCDIR)/%.c=$(SRCDIR)/%.o) 
 ASMOBJ:=$(ASMS:$(ASMDIR)/%.s=$(ASMDIR)/%.o)
@@ -41,7 +42,7 @@ ironhand.elf: asm/ironhand.ld $(ASMOBJ)
 src/%.o: src/%.c
 	$(CROSS_COMPILE)gcc $(CFLAGS) -c $< -o $@
 
-asm/%.o: asm/%.s
+asm/%.o: asm/%.s $(INCLUDES)
 	$(CROSS_COMPILE)as -mcpu=$(CPU_TYPE) -g $< -o $@
 
 

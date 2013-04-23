@@ -1,3 +1,5 @@
+.include "asm/macros.S"
+
 .text
 
 .global PrintUART
@@ -18,6 +20,7 @@ PrintUART:
 
 2:
     mov pc, r14
+    NEXT
 
 
 .global LocalEcho

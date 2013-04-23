@@ -11,5 +11,8 @@ SECTIONS
     . = ALIGN(8);
     . = . + 0x10000; /* 64kB of stack memory */
     stack_top = .;
+
+    . = . + 0x10000; /* 64kB of return stack memory */
+    return_stack_top = .;
 }
 
