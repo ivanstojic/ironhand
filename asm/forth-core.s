@@ -1,10 +1,24 @@
 .include "asm/macros.S"
 
-.text
 .global DOCOL
 DOCOL:
     PUSHRSP r12
-    ADD r0, #4
-    MOV r12, r0
+    add r0, #4
+    mov r12, r0
     NEXT
+
+
+defcode "DROP",4,,DROP
+    pop {r0}
+    NEXT
+
+defcode "DUP",3,,DUP
+    pop {r0}
+    push {r0}
+    push {r0}
+    NEXT
+
+defword "WIGGLE",6,,WIGGLE
+    .int DUP
+    .int DROP
 
