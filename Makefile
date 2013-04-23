@@ -27,6 +27,11 @@ ASMOBJ:=$(ASMS:$(ASMDIR)/%.s=$(ASMDIR)/%.o)
 run: ironhand.img
 	qemu-system-arm -M versatilepb -m 128M -nographic -kernel $<
 
+.PHONY: debug
+debug: ironhand.img
+	qemu-system-arm -s -S -M versatilepb -m 128M -nographic -kernel $<
+
+
 ironhand.img: ironhand.elf
 	$(CROSS_COMPILE)objcopy -O binary ironhand.elf ironhand.img
 

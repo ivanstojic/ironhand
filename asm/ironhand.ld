@@ -1,7 +1,7 @@
-ENTRY(_Reset)
+ENTRY(_entrypoint)
 SECTIONS
 {
-    . = 0x10000; // Origin is at 64k -- for qemu -kernel loading
+    . = 0x10000; /* Origin is at 64k -- for qemu -kernel loading */
     .startup . : { asm/startup.o(.text) }
 
     .text : { *(.text) }
