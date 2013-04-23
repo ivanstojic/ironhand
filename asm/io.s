@@ -33,6 +33,9 @@ LocalEcho:
     cmp r1, #0
     bne 1b
 
+    ldrb r1, [r2]
+    strb r1, [r2]
+
     mov pc, r14
 
 
