@@ -59,3 +59,14 @@ name_\label :
 code_\label :	
 	.endm
         
+
+
+        .macro defvar name, namelen, flags=0, label, initial=0
+	defcode \name,\namelen,\flags,\label
+	push $var_\name
+	NEXT
+	.align 4
+var_\name :
+	.int \initial
+	.endm
+
