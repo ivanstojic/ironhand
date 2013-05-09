@@ -1,45 +1,33 @@
 .include "asm/macros.S"
-
 .text
 
-.global PrintUART
-PrintUART:
-    /* What are we writing */
-    ldr r3, =_msg
+defcode "EMIT",4,,EMIT
+    pop {r0}
 
-    /* Where will we write it? */
     ldr r2, =UART0DR
     ldr r2, [r2]
 
-1:  /* let's loop */
-    ldrb r1, [r3], #1
-    cmp r1, #0
-    beq 2f
-    strb r1, [r2]
-    b 1b
+    strb r0, [r2]
 
-2:
-    mov pc, r14
     NEXT
 
 
-.global LocalEcho
-LocalEcho:
+defcode "KEY",3,,KEY
     ldr r2, =UART0DR
     ldr r2, [r2]
 
     ldr r3, =UART0FR
     ldr r3, [r3]
-
 1:  ldrb r1, [r3]
     and r1, r1, #0x10
     cmp r1, #0
     bne 1b
 
     ldrb r1, [r2]
-    strb r1, [r2]
+    push {r1}
 
-    mov pc, r14
+    NEXT
+
 
 
 .data
@@ -50,9 +38,5 @@ UART0DR:
 
 UART0FR:
     .int UART0 + 0x18
-
-_msg:
-    .string "Hello, world from IronHand!"
-    .byte 0
 
 

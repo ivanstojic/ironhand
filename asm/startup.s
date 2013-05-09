@@ -12,6 +12,9 @@ _entrypoint:
     NEXT
 
 dummy:
-    .int LIT, 42
-    .int WIGGLE
+    .int LIT, 'x'
+    .int EMIT
+    .int KEY, EMIT
+    .int KEY, EMIT
+    .int EXIT
 
