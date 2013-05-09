@@ -9,14 +9,11 @@ CFLAGS=-g
 
 CFLAGS=$(CFLAGS) -mcpu=$(CPU_TYPE)
 
-SRCDIR=src
 ASMDIR=asm
 
-SOURCES:=$(wildcard $(SRCDIR)/*.c)
 ASMS:=$(wildcard $(ASMDIR)/*.s)
 INCLUDES:=$(wildcard $(ASMDIR)/*.S)
 
-COBJ:=$(SOURCES:$(SRCDIR)/%.c=$(SRCDIR)/%.o) 
 ASMOBJ:=$(ASMS:$(ASMDIR)/%.s=$(ASMDIR)/%.o)
 
 
@@ -43,9 +40,6 @@ ironhand.img: ironhand.elf
 
 ironhand.elf: asm/ironhand.ld $(ASMOBJ)
 	$(CROSS_COMPILE)ld -T asm/ironhand.ld $(ASMOBJ) -o ironhand.elf
-
-src/%.o: src/%.c
-	$(CROSS_COMPILE)gcc $(CFLAGS) -c $< -o $@
 
 asm/%.o: asm/%.s $(INCLUDES)
 	$(CROSS_COMPILE)as -mcpu=$(CPU_TYPE) -g $< -o $@
