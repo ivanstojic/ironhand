@@ -1,72 +1,85 @@
 /*
-
-R0 = instruction being "decoded" / execd
-R12 = forth codeword to execute next (forth quasi PC)
-R11 = forth return stack pointer
-
+   R0 = instruction being "decoded" / execd
+   R11 = forth return stack pointer
+   R12 = forth codeword to execute next (forth quasi PC)
 */
 
+/* Fetch next FORTH instruction in direct threading mode and jump to its
+   execution handler */
 .macro NEXT
     ldr r0, [r12], #4
-    ldr r0, [r0]
-    bx r0
+    ldr r1, [r0]
+    bx r1
 .endm
+
 
 .macro PUSHRSP reg
     str \reg, [r11, #-4]!
 .endm
+
 
 .macro POPRSP reg
     ldr \reg, [r11], #4
 .endm
 
 
-	.set F_IMMED,0x80
-	.set F_HIDDEN,0x20
-	.set F_LENMASK,0x1f
+.set F_IMMED,0x80
+.set F_HIDDEN,0x20
+.set F_LENMASK,0x1f
 
-	/* Store the chain of links. */
-	.set link,0
+/* Initializing the chain of forth word links. */
+.set link,0
 
-	.macro defword name, namelen, flags=0, label
-	.align 4
-	.globl name_\label
+
+/* DEFWORD: define a forth word written in forth
+    This macro is used to define a forth word usable in our system
+    and written in forth itself. The word declaration begins with this
+    macro and extends until a call to the NEXT macro
+*/
+.macro defword name, namelen, flags=0, label
+.align 1
+.globl name_\label
 name_\label :
 	.int link		/* link */
 	.set link,name_\label
 	.byte \flags+\namelen	/* flags + length byte */
 	.ascii "\name"		/* the name */
-	.align 4		/* padding to next 4 byte boundary */
+	.align 1		/* padding to next 4 byte boundary */
 	.globl \label
 \label :
 	.int DOCOL		/* codeword - the interpreter */
-	.endm
+.endm
 
 
-	.macro defcode name, namelen, flags=0, label
-	.align 4
-	.globl name_\label
+/* DEFCODE: define a forth word written in assembler
+    This macro is used to define a forth word usable in our system
+    and written in assembler. The word declaration begins with this
+    macro and extends until a call to forth word EXIT in the body
+*/
+.macro defcode name, namelen, flags=0, label
+.align 1
+.globl name_\label
 name_\label :
 	.int link
 	.set link,name_\label
 	.byte \flags+\namelen
 	.ascii "\name"	
-	.align 4
-	.globl \label
+        .align 1
+        .globl \label
 \label :
 	.int code_\label
 	.globl code_\label
 code_\label :	
-	.endm
+.endm
         
 
 
-        .macro defvar name, namelen, flags=0, label, initial=0
+.macro defvar name, namelen, flags=0, label, initial=0
 	defcode \name,\namelen,\flags,\label
 	push $var_\name
 	NEXT
-	.align 4
+.align 1
 var_\name :
 	.int \initial
-	.endm
+.endm
 

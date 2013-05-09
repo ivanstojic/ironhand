@@ -2,20 +2,16 @@
 .global _entrypoint
 
 _entrypoint:
+    /* Init stacks - broken on purpose for now, because I don't have a better way
+    to set them other than manual addr values. Halp. */
     ldr sp, =stack_top
     ldr r11, =return_stack_top;
-
-    mov r0, #42
-    push {r0}
 
     ldr r12, =dummy
 
     NEXT
 
 dummy:
+    .int LIT, 42
     .int WIGGLE
-
-    bl LocalEcho
-    bl PrintUART
-    b .
 

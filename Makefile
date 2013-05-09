@@ -20,9 +20,7 @@ COBJ:=$(SOURCES:$(SRCDIR)/%.c=$(SRCDIR)/%.o)
 ASMOBJ:=$(ASMS:$(ASMDIR)/%.s=$(ASMDIR)/%.o)
 
 
-#
-# And off we go...
-#
+# Housekeeping and running/debugging
 
 .PHONY: run
 run: ironhand.img
@@ -32,6 +30,13 @@ run: ironhand.img
 debug: ironhand.img
 	qemu-system-arm -s -S -M versatilepb -m 128M -nographic -kernel $<
 
+.PHONY: clean
+clean:
+	find . -iname '*.o' | xargs rm
+	rm -f ironhand.img ironhand.elf
+
+
+# Actual workers
 
 ironhand.img: ironhand.elf
 	$(CROSS_COMPILE)objcopy -O binary ironhand.elf ironhand.img
@@ -45,9 +50,4 @@ src/%.o: src/%.c
 asm/%.o: asm/%.s $(INCLUDES)
 	$(CROSS_COMPILE)as -mcpu=$(CPU_TYPE) -g $< -o $@
 
-
-.PHONY: clean
-clean:
-	find . -iname '*.o' | xargs rm
-	rm -f ironhand.img ironhand.elf
 
