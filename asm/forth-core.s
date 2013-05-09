@@ -20,6 +20,7 @@ defcode "LIT",3,,LIT
 
 defcode "EXIT",4,,EXIT
     POPRSP r12
+    /* TODO: exit shouldn't hang the CPU in final version */
     b .
     NEXT
 
@@ -35,9 +36,4 @@ defcode "DUP",3,,DUP
     push {r0}
     NEXT
 
-
-defword "WIGGLE",6,,WIGGLE
-    .int DUP
-    .int DROP
-    .int EXIT
 

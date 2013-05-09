@@ -2,6 +2,10 @@
 .text
 
 defcode "EMIT",4,,EMIT
+    bl actual_emit
+    NEXT
+
+actual_emit:
     pop {r0}
 
     ldr r2, =UART0DR
@@ -9,10 +13,14 @@ defcode "EMIT",4,,EMIT
 
     strb r0, [r2]
 
-    NEXT
+    mov r14, pc
 
 
 defcode "KEY",3,,KEY
+    bl actual_key
+    NEXT
+
+actual_key:
     ldr r2, =UART0DR
     ldr r2, [r2]
 
@@ -26,7 +34,7 @@ defcode "KEY",3,,KEY
     ldrb r1, [r2]
     push {r1}
 
-    NEXT
+    mov r14, pc
 
 
 

@@ -8,8 +8,12 @@ _entrypoint:
     ldr r11, =return_stack_top;
 
     ldr r12, =dummy
-
     NEXT
+
+    /* After everything's said and done... this will start the system */
+    ldr r12, =start_over_here
+    NEXT
+
 
 dummy:
     .int LIT, 'x'
@@ -18,3 +22,5 @@ dummy:
     .int KEY, EMIT
     .int EXIT
 
+start_over_here:
+    # .int QUIT
