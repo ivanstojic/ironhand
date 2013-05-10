@@ -18,6 +18,19 @@ _entrypoint:
 dummy:
     .int FAVCHAR
     .int EMIT
+
+    .int LIT, 3
+    .int BASE
+    .int ADDSTORE /* BASE=BASE+3 */
+
+    .int LIT, 2
+    .int BASE
+    .int SUBSTORE
+
+    .int BASE, FETCH /* get addr of BASE, fetch to stack */
+    .int EMIT /* and print */
+
+
     .int KEY, EMIT
     .int KEY, EMIT
     .int EXIT

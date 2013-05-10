@@ -42,9 +42,9 @@ defvar "STATE",5,,STATE
 defvar "HERE",4,,HERE
 defvar "LATEST",6,,LATEST,0x50000
 defvar "S0",2,,SZ
-defvar "BASE",4,,BASE,')'
+defvar "BASE",4,,BASE,'a'
 
-defconst "FAVCHAR",7,,FAVCHAR,')'
+defconst "FAVCHAR",7,,FAVCHAR,'?'
 defconst "VERSION",7,,VERSION,0xDEAD
 defconst "R0",2,,RZ,return_stack_top
 defconst "DOCOL",5,,__DOCOL,DOCOL
