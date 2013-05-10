@@ -16,7 +16,7 @@ _entrypoint:
 
 
 dummy:
-    .int LIT, 'x'
+    .int BASE
     .int EMIT
     .int KEY, EMIT
     .int KEY, EMIT

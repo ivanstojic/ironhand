@@ -18,6 +18,7 @@ defcode "LIT",3,,LIT
     push {r0}
     NEXT
 
+
 defcode "EXIT",4,,EXIT
     POPRSP r12
     /* TODO: exit shouldn't hang the CPU in final version */
@@ -36,4 +37,10 @@ defcode "DUP",3,,DUP
     push {r0}
     NEXT
 
+
+defvar "STATE",5,,STATE
+defvar "HERE",4,,HERE
+defvar "LATEST",6,,LATEST,0x50000
+defvar "S0",2,,SZ
+defvar "BASE",4,,BASE,')'
 

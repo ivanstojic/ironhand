@@ -76,7 +76,8 @@ code_\label :
 
 .macro defvar name, namelen, flags=0, label, initial=0
 	defcode \name,\namelen,\flags,\label
-	push $var_\name
+        ldr r0, var_\name
+        push {r0}
 	NEXT
 .align 1
 var_\name :

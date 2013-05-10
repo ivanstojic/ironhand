@@ -8,12 +8,11 @@ defcode "EMIT",4,,EMIT
 actual_emit:
     pop {r0}
 
-    ldr r2, =UART0DR
-    ldr r2, [r2]
+    ldr r2, UART0DR
 
     strb r0, [r2]
 
-    mov r14, pc
+    mov pc, r14
 
 
 defcode "KEY",3,,KEY
@@ -21,11 +20,9 @@ defcode "KEY",3,,KEY
     NEXT
 
 actual_key:
-    ldr r2, =UART0DR
-    ldr r2, [r2]
+    ldr r2, UART0DR
+    ldr r3, UART0FR
 
-    ldr r3, =UART0FR
-    ldr r3, [r3]
 1:  ldrb r1, [r3]
     and r1, r1, #0x10
     cmp r1, #0
@@ -34,11 +31,9 @@ actual_key:
     ldrb r1, [r2]
     push {r1}
 
-    mov r14, pc
+    mov pc, r14
 
 
-
-.data
 .equ UART0, 0x101f1000
 
 UART0DR:
