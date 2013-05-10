@@ -44,3 +44,11 @@ defvar "LATEST",6,,LATEST,0x50000
 defvar "S0",2,,SZ
 defvar "BASE",4,,BASE,')'
 
+defconst "FAVCHAR",7,,FAVCHAR,')'
+defconst "VERSION",7,,VERSION,0xDEAD
+defconst "R0",2,,RZ,return_stack_top
+defconst "DOCOL",5,,__DOCOL,DOCOL
+defconst "F_IMMED",7,,__F_IMMED,F_IMMED
+defconst "F_HIDDEN",8,,__F_HIDDEN,F_HIDDEN
+defconst "F_LENMASK",9,,__F_LENMASK,F_LENMASK
+

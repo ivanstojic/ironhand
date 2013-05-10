@@ -16,7 +16,7 @@ _entrypoint:
 
 
 dummy:
-    .int BASE
+    .int FAVCHAR
     .int EMIT
     .int KEY, EMIT
     .int KEY, EMIT
@@ -24,3 +24,4 @@ dummy:
 
 start_over_here:
     # .int QUIT
+

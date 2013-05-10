@@ -84,3 +84,14 @@ var_\name :
 	.int \initial
 .endm
 
+
+
+.macro defconst name, namelen, flags=0, label, value
+    defcode \name,\namelen,\flags,\label
+    ldr r0, const_\label
+    push {r0}
+    NEXT
+const_\label:
+    .int \value
+.endm
+
