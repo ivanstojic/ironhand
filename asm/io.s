@@ -48,17 +48,17 @@ actual_word:
     push {lr}
 1:
     bl actual_key		/* get next key, returned in %eax */
-    cmp r1, #'\\'		/* start of a comment? */
+    cmp r0, #'\\'		/* start of a comment? */
     beq 3f			/* if so, skip the comment */
-    cmp r1, #' '            /* space? */
+    cmp r0, #' '            /* space? */
     beq 1b			/* if so, keep looking for word start */
     
     /* Search for the end of the word, storing chars as we go. */
-    ldr r2, =word_buffer
+    ldr r1, =word_buffer
 2:
-    strb r1, [r2, #1]!
+    strb r0, [r1], #1
     bl actual_key
-    cmp r1, #' '
+    cmp r0, #' '
     bne 2b
     
     ldr r3, =word_buffer
