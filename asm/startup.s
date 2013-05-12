@@ -9,6 +9,8 @@ _entrypoint:
 
     bl actual_word
 
+    b .
+
     ldr r12, =dummy
     NEXT
 
@@ -19,7 +21,6 @@ _entrypoint:
 
 dummy:
     
-/*
     .int FAVCHAR
     .int EMIT
 
@@ -38,7 +39,6 @@ dummy:
     .int KEY, EMIT
     .int KEY, EMIT
     .int EXIT
-    */
 
 start_over_here:
     # .int QUIT

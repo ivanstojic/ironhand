@@ -17,7 +17,7 @@ actual_emit:
 
 defcode "KEY",3,,KEY
     bl actual_key
-    push {r1}
+    push {r0}
     NEXT
 
 .global actual_key
@@ -30,7 +30,7 @@ actual_key:
     cmp r1, #0
     bne 1b
 
-    ldrb r1, [r2]
+    ldrb r0, [r2]
 
     bx lr
 
