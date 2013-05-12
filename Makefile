@@ -34,7 +34,11 @@ clean:
 
 .PHONY: map
 map: ironhand.elf
-	arm-none-eabi-objdump -d ironhand.elf | less
+	arm-none-eabi-objdump -d $< | less
+
+.PHONY: gdb
+gdb: ironhand.elf
+	arm-none-eabi-gdb -x gdb.params $<
 
 
 # Actual workers
