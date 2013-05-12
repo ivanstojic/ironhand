@@ -32,6 +32,10 @@ clean:
 	find . -iname '*.o' | xargs rm
 	rm -f ironhand.img ironhand.elf
 
+.PHONY: map
+map: ironhand.elf
+	arm-none-eabi-objdump -d ironhand.elf | less
+
 
 # Actual workers
 
