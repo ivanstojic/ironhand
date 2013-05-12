@@ -7,6 +7,8 @@ _entrypoint:
     ldr sp, =stack_top
     ldr r11, =return_stack_top;
 
+    bl actual_word
+
     ldr r12, =dummy
     NEXT
 
@@ -16,24 +18,27 @@ _entrypoint:
 
 
 dummy:
+    
+/*
     .int FAVCHAR
     .int EMIT
 
     .int LIT, 3
     .int BASE
-    .int ADDSTORE /* BASE=BASE+3 */
+    .int ADDSTORE 
 
     .int LIT, 2
     .int BASE
     .int SUBSTORE
 
-    .int BASE, FETCH /* get addr of BASE, fetch to stack */
-    .int EMIT /* and print */
+    .int BASE, FETCH
+    .int EMIT
 
 
     .int KEY, EMIT
     .int KEY, EMIT
     .int EXIT
+    */
 
 start_over_here:
     # .int QUIT

@@ -37,14 +37,14 @@
     macro and extends until a call to the NEXT macro
 */
 .macro defword name, namelen, flags=0, label
-.align 1
+.balign 4
 .globl name_\label
 name_\label :
 	.int link		/* link */
 	.set link,name_\label
 	.byte \flags+\namelen	/* flags + length byte */
 	.ascii "\name"		/* the name */
-	.align 1		/* padding to next 4 byte boundary */
+	.balign 4		/* padding to next 4 byte boundary */
 	.globl \label
 \label :
 	.int DOCOL		/* codeword - the interpreter */
@@ -57,14 +57,14 @@ name_\label :
     macro and extends until a call to forth word EXIT in the body
 */
 .macro defcode name, namelen, flags=0, label
-.align 1
+.balign 4
 .globl name_\label
 name_\label :
 	.int link
 	.set link,name_\label
 	.byte \flags+\namelen
 	.ascii "\name"	
-        .align 1
+        .balign 4
         .globl \label
 \label :
 	.int code_\label
@@ -79,7 +79,7 @@ code_\label :
         ldr r0, =var_\name
         push {r0}
 	NEXT
-.align 1
+.balign 4
 var_\name :
 	.int \initial
 .endm

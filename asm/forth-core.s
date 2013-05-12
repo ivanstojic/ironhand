@@ -26,17 +26,6 @@ defcode "EXIT",4,,EXIT
     NEXT
 
 
-defcode "DROP",4,,DROP
-    pop {r0}
-    NEXT
-
-
-defcode "DUP",3,,DUP
-    pop {r0}
-    push {r0}
-    push {r0}
-    NEXT
-
 
 defvar "STATE",5,,STATE
 defvar "HERE",4,,HERE
