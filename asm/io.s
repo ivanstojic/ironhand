@@ -22,6 +22,7 @@ defcode "KEY",3,,KEY
 
 .global actual_key
 actual_key:
+    push {r1-r3}
     ldr r2, UART0DR
     ldr r3, UART0FR
 
@@ -31,6 +32,7 @@ actual_key:
     bne 1b
 
     ldrb r0, [r2]
+    pop {r1-r3}
 
     bx lr
 
