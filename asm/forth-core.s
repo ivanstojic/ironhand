@@ -8,8 +8,7 @@
 .global DOCOL
 DOCOL:
     PUSHRSP r12
-    add r0, #4
-    mov r12, r0
+    add r12, r0, #4
     NEXT
 
 
@@ -29,7 +28,6 @@ defcode "EXIT",4,,EXIT
 
 defvar "STATE",5,,STATE
 defvar "HERE",4,,HERE
-defvar "LATEST",6,,LATEST,0x50000
 defvar "S0",2,,SZ
 
 defconst "FAVCHAR",7,,FAVCHAR,'?'
