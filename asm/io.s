@@ -15,6 +15,7 @@ actual_emit:
     bx lr
 
 
+/* ( -- c ) c is the char read from the input device */
 defcode "KEY",3,,KEY
     bl actual_key
     push {r0}
@@ -37,25 +38,23 @@ actual_key:
     bx lr
 
 
-
+/* ( -- a-addr w ) w bytes at a-addr are a string read from the input device */
 defcode "WORD",4,,WORD
     bl actual_word
-    push {r3}
-    push {r2}
+    push {r0}
+    push {r1}
     NEXT
 
 .global actual_word
 actual_word:
-	/* Search for first non-blank character.  Also skip \ comments. */
     push {lr}
 1:
-    bl actual_key		/* get next key, returned in %eax */
-    cmp r0, #'\\'		/* start of a comment? */
-    beq 3f			/* if so, skip the comment */
-    cmp r0, #' '            /* space? */
-    beq 1b			/* if so, keep looking for word start */
+    bl actual_key
+    cmp r0, #'\\'
+    beq 3f
+    cmp r0, #' '
+    beq 1b
     
-    /* Search for the end of the word, storing chars as we go. */
     ldr r1, =word_buffer
 2:
     strb r0, [r1], #1
@@ -63,8 +62,8 @@ actual_word:
     cmp r0, #' '
     bne 2b
     
-    ldr r3, =word_buffer
-    sub r2, r3
+    ldr r0, =word_buffer
+    sub r1, r0
     
     pop {lr}
     bx lr
