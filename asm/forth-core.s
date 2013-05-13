@@ -27,7 +27,6 @@ defcode "EXIT",4,,EXIT
 
 
 defvar "STATE",5,,STATE
-defvar "HERE",4,,HERE
 defvar "S0",2,,SZ
 
 defconst "FAVCHAR",7,,FAVCHAR,'?'

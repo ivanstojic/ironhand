@@ -2,11 +2,15 @@ ENTRY(_entrypoint)
 SECTIONS
 {
     . = 0x10000; /* Origin is at 64k -- for qemu -kernel loading */
-    .startup . : { asm/startup.o(.text) }
+    .startup : { asm/startup.o(.text) }
 
-    .text : { *(.text) }
-    .data : { *(.data) }
-    .bss : { *(.bss COMMON) }
+    .text : { *(EXCLUDE_FILE (*asm/forth-dictionary.o) .text) }
+
+    .text : {
+        asm/forth-dictionary.o
+    }
+
+    end_of_precompiled_code = ABSOLUTE(.);
 
     . = ALIGN(8);
     . = . + 0x10000; /* 64kB of stack memory */
