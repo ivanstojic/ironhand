@@ -7,10 +7,6 @@ _entrypoint:
     ldr sp, =stack_top
     ldr r11, =return_stack_top;
 
-    bl actual_word
-
-    b .
-
     ldr r12, =dummy
     NEXT
 
@@ -18,26 +14,10 @@ _entrypoint:
     ldr r12, =start_over_here
     NEXT
 
-
 dummy:
-    
-    .int FAVCHAR
+    .int LIT, 'a', EMIT
+    .int WORD, NUMBER, DROP
     .int EMIT
-
-    .int LIT, 3
-    .int BASE
-    .int ADDSTORE 
-
-    .int LIT, 2
-    .int BASE
-    .int SUBSTORE
-
-    .int BASE, FETCH
-    .int EMIT
-
-
-    .int KEY, EMIT
-    .int KEY, EMIT
     .int EXIT
 
 start_over_here:

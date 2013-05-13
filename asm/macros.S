@@ -80,6 +80,7 @@ code_\label :
         push {r0}
 	NEXT
 .balign 4
+.global
 var_\name :
 	.int \initial
 .endm

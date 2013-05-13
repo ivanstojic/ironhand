@@ -41,13 +41,13 @@ actual_key:
 /* ( -- a-addr w ) w bytes at a-addr are a string read from the input device */
 defcode "WORD",4,,WORD
     bl actual_word
-    push {r0}
-    push {r1}
+    push {r0, r1}
     NEXT
 
 .global actual_word
 actual_word:
     push {lr}
+
 1:
     bl actual_key
     cmp r0, #'\\'
@@ -56,14 +56,16 @@ actual_word:
     beq 1b
     
     ldr r1, =word_buffer
+
 2:
     strb r0, [r1], #1
     bl actual_key
     cmp r0, #' '
     bne 2b
     
-    ldr r0, =word_buffer
-    sub r1, r0
+    mov r0, r1
+    ldr r1, =word_buffer
+    sub r0, r1
     
     pop {lr}
     bx lr
@@ -78,8 +80,62 @@ actual_word:
 word_buffer:
 	.space 32
 
+/* What number base are we using? */
+defvar "BASE",4,,BASE,10
+
+/* ( a-addr w1 -- w2 w3 )
+   w2 is the num value of str at a-addr of len w1, w3 is the error offset
+   uses the number base in var_BASE
+*/
+defcode "NUMBER",6,,NUMBER
+    pop {r0, r1}
+    bl actual_number
+    push {r4}
+    push {r5}
+    NEXT
+
+.global actual_number
+actual_number:
+    mov r4, #0                   /* result is 0 */
+    mov r5, #0                   /* error offset is 0 */
+    mov r6, #1                   /* negative flag */
+    ldr r7, var_BASE
+
+    cmp r0, #0 
+    bxeq lr                      /* if the length is zero, early abort */
+
+    mov r2, r1                   /* r2 is reading ptr */
+
+    ldrb r3, [r2], #1            /* pick up first char into r3 */
+    sub r0, #1
+    cmp r3, #'-'                 /* is it a minus sign? */
+    bne 3f
+    mov r6, #-1                  /* yes, so toggle the flag, fall through to read */
+
+2:
+    cmp r0, #0
+    beq 5f
+    ldrb r3, [r2], #1
+    sub r0, #1
+    
+3:
+    cmp r3, #'0'                 /* check for out of range digits */
+    blo 5f
+    cmp r3, #'9'
+    bhi 5f
+
+    sub r3, #'0'
+    mul r4, r7
+    add r4, r3
+
+    b 2b
+    
 
 
+5:
+    mov r5, r0
+    mul r4, r6                   /* multiply result with negative flag */
+    bx lr                        /* out we go, r4-res, r5-err offs */
 
 
 .equ UART0, 0x101f1000
