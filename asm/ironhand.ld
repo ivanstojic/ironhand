@@ -12,7 +12,6 @@ SECTIONS
 
     end_of_precompiled_code = ABSOLUTE(.);
 
-    . = ALIGN(8);
     . = . + 0x10000; /* 64kB of stack memory */
     stack_top = .;
 

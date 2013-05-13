@@ -12,7 +12,19 @@ defword "FIND",4,,FIND
 actual_find:
     ldr r2, var_LATEST
 
-    /* NOP */
+1:
+    cmp r2, #0
+    bxeq lr
+
+    add r3, r2, #4
+    ldrb r4, [r3], #1
+
+    cmp r4, r0
+    bne 3f
+
+
+3:
+    
 
     bx lr
 
@@ -27,4 +39,7 @@ defvar "HERE",4,,HERE,end_of_precompiled_code
    the last def<whatever> for us
 */
 defvar "LATEST",6,,LATEST,link
+
+/* Just a helpful label so objdump constants look prettier */
+ironhand_end:
 

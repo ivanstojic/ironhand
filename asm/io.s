@@ -129,8 +129,6 @@ actual_number:
     add r4, r3
 
     b 2b
-    
-
 
 5:
     mov r5, r0
