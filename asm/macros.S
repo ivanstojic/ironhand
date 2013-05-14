@@ -26,6 +26,7 @@
 .set F_IMMED,0x80
 .set F_HIDDEN,0x20
 .set F_LENMASK,0x1f
+.set F_NOIMM_MASK, F_HIDDEN | F_LENMASK
 
 /* Initializing the chain of forth word links. */
 .set link,0
