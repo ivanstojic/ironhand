@@ -14,7 +14,12 @@ _entrypoint:
 
 start_over_here:
     .int LITSTRING
-    .int 5
-    .string "DiCKs"
-    # .int QUIT
+    .int 7
+    .string "Forth!\n"
+    .balign 4
+    .int TELL
+
+    .int WORD, TELL
+    .int LIT, 10, EMIT
+    .int BRANCH, -24
 

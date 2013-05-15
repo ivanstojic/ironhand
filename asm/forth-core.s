@@ -25,7 +25,6 @@ defcode "EXIT",4,,EXIT
     NEXT
 
 
-
 defvar "S0",2,,SZ
 
 defconst "FAVCHAR",7,,FAVCHAR,'?'

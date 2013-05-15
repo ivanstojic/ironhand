@@ -147,6 +147,7 @@ defcode "TELL",4,,TELL
     cmp r0, #0
     beq 2f
     sub r0, #1
+
     ldrb r3, [r1], #1
     strb r3, [r2]
     
