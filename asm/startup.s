@@ -8,7 +8,11 @@ _entrypoint:
     ldr r11, =return_stack_top;
 
     mov r0, #6
-    ldr r1, msg
+    ldr r1, =msg
+    bl actual_find
+
+    mov r0, #4
+    ldr r1, =msg2
     bl actual_find
 
     ldr r12, =dummy
@@ -20,6 +24,9 @@ _entrypoint:
 
 msg:
     .string "LATEST"
+
+msg2:
+    .string "FIND"
 
 dummy:
     .int LIT, 'a', EMIT
