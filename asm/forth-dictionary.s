@@ -100,6 +100,28 @@ defcode "CREATE",6,,CREATE
 
     NEXT
 
+
+defcode ",",1,,COMMA
+    pop {r0}
+    bl actual_comma
+    NEXT
+
+actual_comma:
+/*
+    movl var_HERE,%edi	// HERE
+    stosl			// Store it.
+    movl %edi,var_HERE	// Update HERE (incremented)
+    ret
+*/
+
+    ldr r1, var_HERE
+    ldr r2, [r1]
+    str r0, [r2], #4
+    str r2, [r1] 
+
+    bx lr
+
+
 /* making sure this stays at the bottom of this file means we don't have to
    manually track the last dictionary pointer.
    
