@@ -101,6 +101,7 @@ defcode "CREATE",6,,CREATE
     NEXT
 
 
+/* ( w -- ) w is the word to store at HERE, then increments HERE */
 defcode ",",1,,COMMA
     pop {r0}
     bl actual_comma
@@ -115,6 +116,7 @@ actual_comma:
     bx lr
 
 
+/* ( -- ) the last defined word gets its IMMEDIATE flag toggled */
 defcode "IMMEDIATE",9,F_IMMED,IMMEDIATE
     ldr r0, =var_LATEST
     ldr r0, [r0]
@@ -129,6 +131,7 @@ defcode "IMMEDIATE",9,F_IMMED,IMMEDIATE
     NEXT
 
 
+/* ( a-addr -- ) the dict entry defined at a-addr gets its HIDDEN flag toggled */
 defcode "HIDDEN",6,,HIDDEN
     pop {r0}
     ldrb r1, [r0, #4]!
@@ -140,7 +143,7 @@ defcode "HIDDEN",6,,HIDDEN
 
     NEXT
 
-
+/* ( -- ) read next word, find it in dictionary, toggle its HIDDEN flag */
 defword "HIDE",4,,HIDE
     .int WORD, FIND
     .int HIDDEN
