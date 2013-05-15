@@ -107,19 +107,44 @@ defcode ",",1,,COMMA
     NEXT
 
 actual_comma:
-/*
-    movl var_HERE,%edi	// HERE
-    stosl			// Store it.
-    movl %edi,var_HERE	// Update HERE (incremented)
-    ret
-*/
-
     ldr r1, var_HERE
     ldr r2, [r1]
     str r0, [r2], #4
     str r2, [r1] 
 
     bx lr
+
+
+defcode "IMMEDIATE",9,F_IMMED,IMMEDIATE
+    ldr r0, =var_LATEST
+    ldr r0, [r0]
+
+    ldrb r1, [r0, #4]!
+
+    mov r2, #F_IMMED
+    eor r1, r2
+
+    strb r1, [r0]
+
+    NEXT
+
+
+defcode "HIDDEN",6,,HIDDEN
+    pop {r0}
+    ldrb r1, [r0, #4]!
+
+    mov r2, #F_HIDDEN
+    eor r1, r2
+
+    strb r1, [r0]
+
+    NEXT
+
+
+defword "HIDE",4,,HIDE
+    .int WORD, FIND
+    .int HIDDEN
+    .int EXIT
 
 
 /* making sure this stays at the bottom of this file means we don't have to
