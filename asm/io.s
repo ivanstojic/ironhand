@@ -136,6 +136,27 @@ actual_number:
     bx lr                        /* out we go, r4-res, r5-err offs */
 
 
+
+/* ( a-addr w -- ) outputs w chars of string at a-addr */
+defcode "TELL",4,,TELL
+    pop {r0, r1}
+
+    ldr r2, UART0DR
+
+1:
+    cmp r0, #0
+    beq 2f
+    sub r0, #1
+    ldrb r3, [r1], #1
+    strb r3, [r2]
+    
+    b 1b
+
+2:
+    NEXT
+
+
+
 .equ UART0, 0x101f1000
 
 UART0DR:

@@ -13,5 +13,8 @@ _entrypoint:
     NEXT
 
 start_over_here:
+    .int LITSTRING
+    .int 5
+    .string "DiCKs"
     # .int QUIT
 
