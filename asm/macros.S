@@ -4,6 +4,7 @@
    R12 = forth codeword to execute next (forth quasi PC)
 */
 
+
 /* Fetch next FORTH instruction in direct threading mode and jump to its
    execution handler */
 .macro NEXT

@@ -6,9 +6,6 @@
     r1 == pc, r0 == CFA, 4 bytes less than the first forth opcode
 */
 
-.global link
-.set link, 0
-
 .global DOCOL
 DOCOL:
     PUSHRSP r12
