@@ -50,6 +50,7 @@ defcode ">CFA",4,,TCFA
     push {r0}
     NEXT
 
+.global actual_tcfa
 actual_tcfa:
     add r0, #4          /* skip link to previous entry */
     ldrb r1, [r0], #1   /* pick up flag+len, move over that */
@@ -107,6 +108,7 @@ defcode ",",1,,COMMA
     bl actual_comma
     NEXT
 
+.global actual_comma
 actual_comma:
     ldr r1, var_HERE
     ldr r2, [r1]

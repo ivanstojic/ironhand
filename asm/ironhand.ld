@@ -4,7 +4,9 @@ SECTIONS
     . = 0x10000; /* Origin is at 64k -- for qemu -kernel loading */
     .startup : { asm/startup.o(.text) }
 
-    .text : { *(EXCLUDE_FILE (*asm/forth-dictionary.o) .text) }
+    .text : { asm/forth-core.o(.text) }
+
+    .text : { *(EXCLUDE_FILE (*asm/forth-dictionary.o *asm/forth-core.o) .text) }
 
     .text : {
         asm/forth-dictionary.o

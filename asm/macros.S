@@ -29,7 +29,12 @@
 .set F_NOIMM_MASK, F_HIDDEN | F_LENMASK
 
 /* Initializing the chain of forth word links. */
+/*
+.ifndef link
+.global link
 .set link,0
+.endif
+*/
 
 
 /* DEFWORD: define a forth word written in forth

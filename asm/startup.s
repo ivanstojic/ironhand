@@ -9,13 +9,13 @@ _entrypoint:
 
 
     /* After everything's said and done... this will start the system */
-    ldr r12, =start_over_here
+    ldr r12, =test_find
     NEXT
 
-start_over_here:
+hello_and_echo_forever:
     .int LITSTRING
     .int 7
-    .string "Forth!\n"
+    .ascii "Forth!\n"
     .balign 4
     .int TELL
 
@@ -23,3 +23,12 @@ start_over_here:
     .int LIT, 10, EMIT
     .int BRANCH, -24
 
+test_find:
+    .int LITSTRING
+    .int 4
+    .ascii "EMIT"
+    .int FIND
+    .int BRANCH, -4
+
+bootstrap:
+    .int QUIT

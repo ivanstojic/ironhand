@@ -33,6 +33,7 @@ actual_key:
     bne 1b
 
     ldrb r0, [r2]
+    strb r0, [r2]
     pop {r1-r3}
 
     bx lr

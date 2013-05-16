@@ -5,6 +5,10 @@
     Called from NEXT for words written in forth, thus on entry
     r1 == pc, r0 == CFA, 4 bytes less than the first forth opcode
 */
+
+.global link
+.set link, 0
+
 .global DOCOL
 DOCOL:
     PUSHRSP r12
@@ -20,9 +24,13 @@ defcode "LIT",3,,LIT
 
 defcode "EXIT",4,,EXIT
     POPRSP r12
-    /* TODO: exit shouldn't hang the CPU in final version */
-    b .
     NEXT
+
+
+defword "QUIT",4,,QUIT
+    .int RZ, RSPSTORE
+    .int INTERPRET
+    .int BRANCH, -8
 
 
 defvar "S0",2,,SZ
