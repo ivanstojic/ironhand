@@ -1,6 +1,3 @@
-.include "asm/macros.S"
-.text
-
 /* RETURN STACK */
 
 defcode ">R",2,,TOR

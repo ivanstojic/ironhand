@@ -1,6 +1,3 @@
-.include "asm/macros.S"
-.text
-
 /* ( w a-addr -- ) store w into a-addr */
 defcode "!",1,,STORE
     pop {r0, r1}

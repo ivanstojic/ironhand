@@ -1,6 +1,3 @@
-.include "asm/macros.S"
-.text
-
 defcode "LITSTRING",9,,LITSTRING
     ldr r0, [r12], #4
     push {r12}

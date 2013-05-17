@@ -1,6 +1,3 @@
-.include "asm/macros.S"
-.text
-
 /* DOCOL: the interpreter function for direct threaded forth code
     Called from NEXT for words written in forth, thus on entry
     r1 == pc, r0 == CFA, 4 bytes less than the first forth opcode

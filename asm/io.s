@@ -1,6 +1,3 @@
-.include "asm/macros.S"
-.text
-
 defcode "EMIT",4,,EMIT
     bl actual_emit
     NEXT

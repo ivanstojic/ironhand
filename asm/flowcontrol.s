@@ -1,6 +1,3 @@
-.include "asm/macros.S"
-.text
-
 /* ( -- )
    reads next word from forth instruction pointer, adds it to forth instruction pointer */
 defcode "BRANCH",6,,BRANCH

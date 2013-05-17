@@ -1,7 +1,3 @@
-.include "asm/macros.S"
-.text
-
-
 defword "FIND",4,,FIND
     pop {r0, r1}
     bl actual_find

@@ -11,10 +11,12 @@ CFLAGS=$(CFLAGS) -mcpu=$(CPU_TYPE)
 
 ASMDIR=asm
 
-ASMS:=$(wildcard $(ASMDIR)/*.s)
+# All *.s files, except startup.s which is assembled separately, and forth-dictionary.s which is
+# manually appended to the end so that its value of link can be pushed into var_LAST
+ASMS:=$(filter-out $(ASMDIR)/forth-dictionary.s,$(filter-out $(ASMDIR)/startup.s,$(wildcard $(ASMDIR)/*.s))) asm/forth-dictionary.s
 INCLUDES:=$(wildcard $(ASMDIR)/*.S)
 
-ASMOBJ:=$(ASMS:$(ASMDIR)/%.s=$(ASMDIR)/%.o)
+ASMOBJ:=asm/startup.o asm/forth.o
 
 
 # Housekeeping and running/debugging
@@ -49,7 +51,9 @@ ironhand.img: ironhand.elf
 ironhand.elf: asm/ironhand.ld $(ASMOBJ)
 	$(CROSS_COMPILE)ld -T asm/ironhand.ld $(ASMOBJ) -o ironhand.elf
 
-asm/%.o: asm/%.s $(INCLUDES)
-	$(CROSS_COMPILE)as -mcpu=$(CPU_TYPE) -g $< -o $@
+asm/startup.o: asm/startup.s $(INCLUDES)
+	$(CROSS_COMPILE)as -mcpu=$(CPU_TYPE) -g $(INCLUDES) asm/startup.s -o $@
 
+asm/forth.o: $(ASMS) $(INCLUDES)
+	$(CROSS_COMPILE)as -mcpu=$(CPU_TYPE) -g $(INCLUDES) $(ASMS) -o $@
 

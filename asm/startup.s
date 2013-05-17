@@ -1,4 +1,3 @@
-.include "asm/macros.S"
 .global _entrypoint
 
 _entrypoint:

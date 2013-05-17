@@ -1,6 +1,3 @@
-.include "asm/macros.S"
-.text
-
 defvar "STATE",5,,STATE,0
 
 defcode "[",1,F_IMMED,LBRAC
