@@ -1,4 +1,4 @@
-defword "FIND",4,,FIND
+defcode "FIND",4,,FIND
     pop {r0, r1}
     bl actual_find
     push {r2}
