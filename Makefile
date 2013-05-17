@@ -11,9 +11,9 @@ CFLAGS=$(CFLAGS) -mcpu=$(CPU_TYPE)
 
 ASMDIR=asm
 
-# All *.s files, except startup.s which is assembled separately, and forth-dictionary.s which is
+# All *.s files, except startup.s which is assembled separately, and dictionary.s which is
 # manually appended to the end so that its value of link can be pushed into var_LAST
-ASMS:=$(filter-out $(ASMDIR)/forth-dictionary.s,$(filter-out $(ASMDIR)/startup.s,$(wildcard $(ASMDIR)/*.s))) asm/forth-dictionary.s
+ASMS:=$(filter-out $(ASMDIR)/dictionary.s,$(filter-out $(ASMDIR)/startup.s,$(wildcard $(ASMDIR)/*.s))) $(ASMDIR)/dictionary.s
 INCLUDES:=$(wildcard $(ASMDIR)/*.S)
 
 ASMOBJ:=asm/startup.o asm/forth.o
