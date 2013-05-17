@@ -1,8 +1,9 @@
 /* ( -- )
-   reads next word from forth instruction pointer, adds it to forth instruction pointer */
+   reads next word from forth instruction pointer, adds that many cells (w*4) to
+   forth instruction pointer */
 defcode "BRANCH",6,,BRANCH
     ldr r0, [r12]
-    add r12, r0
+    add r12, r12, r0, LSL #2
     NEXT
 
 /* ( w -- ) if w is 0, performs a branch as above, otherwise moves FIP over the branch
