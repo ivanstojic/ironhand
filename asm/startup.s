@@ -8,7 +8,7 @@ _entrypoint:
 
 
     /* After everything's said and done... this will start the system */
-    ldr r12, =test_find
+    ldr r12, =hello_and_echo_forever
     NEXT
 
 hello_and_echo_forever:
@@ -20,14 +20,14 @@ hello_and_echo_forever:
 
     .int WORD, TELL
     .int LIT, 10, EMIT
-    .int BRANCH, -24
+    .int BRANCH, -6
 
 test_find:
     .int LITSTRING
     .int 4
     .ascii "EMIT"
     .int FIND
-    .int BRANCH, -4
+    .int BRANCH, -1
 
 bootstrap:
     .int QUIT
