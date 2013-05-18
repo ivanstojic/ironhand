@@ -41,10 +41,20 @@ defcode "DROP",4,,DROP
     pop {r0}
     NEXT
 
+defcode "2DROP",5,,TWODROP
+    pop {r0, r1}
+    NEXT
+
 defcode "DUP",3,,DUP
     pop {r0}
     push {r0}
     push {r0}
+    NEXT
+
+defcode "2DUP",4,,TWODUP
+    pop {r0, r1}
+    push {r0, r1}
+    push {r0, r1}
     NEXT
 
 defcode "SWAP",4,,SWAP
@@ -67,9 +77,9 @@ defcode "ROT",3,,ROT
 
 defcode "-ROT",4,,NROT
     pop {r0-r2}
-    push {r1}
-    push {r2}
     push {r0}
+    push {r2}
+    push {r1}
     NEXT
 
 

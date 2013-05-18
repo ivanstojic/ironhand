@@ -42,7 +42,7 @@
 /* DEFWORD: define a forth word written in forth
     This macro is used to define a forth word usable in our system
     and written in forth itself. The word declaration begins with this
-    macro and extends until a call to the NEXT macro
+    macro and extends until a call to the EXIT macro
 */
 .macro defword name, namelen, flags=0, label
 .balign 4
@@ -62,7 +62,7 @@ name_\label :
 /* DEFCODE: define a forth word written in assembler
     This macro is used to define a forth word usable in our system
     and written in assembler. The word declaration begins with this
-    macro and extends until a call to forth word EXIT in the body
+    macro and extends until a call to forth word NEXT in the body
 */
 .macro defcode name, namelen, flags=0, label
 .balign 4
@@ -73,7 +73,7 @@ name_\label :
 	.byte \flags+\namelen
 	.ascii "\name"	
         .balign 4
-        .globl \label
+.global \label
 \label :
 	.int code_\label
 	.globl code_\label
@@ -88,7 +88,7 @@ code_\label :
         push {r0}
 	NEXT
 .balign 4
-.global
+.global var_\name
 var_\name :
 	.int \initial
 .endm

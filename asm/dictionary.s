@@ -53,7 +53,7 @@ actual_tcfa:
     mov r2, #F_LENMASK
     and r1, r2          /* strip flags off the length */
 
-    add r0, r2          /* move by length bytes forward */
+    add r0, r1          /* move by length bytes forward */
     add r0, #3          /* and balign 4 the address */
     and r0, #~3
 

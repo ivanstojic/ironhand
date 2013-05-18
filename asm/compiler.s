@@ -36,7 +36,43 @@ defcode "'",1,,TICK
     NEXT
 
 
-defcode "INTERPRET",9,,INTERPRET
+/* ( w -- ) execution is transfered to forth direct threading code at w */
+defcode "EXECUTE",7,,EXECUTE
+    pop {r0}
+    ldr r1, [r0]
+    bx r1
+
+/*
+
+    rijec = ucitaj rijec
+    pronadji u rijecniku
+
+    ako je rijec nadjena
+        nadji njezin xt
+        izvrsi ga
+
+    inace
+        pokusaj parsati broj
+
+        ako je broj parsan
+            gurni ga na stack
+
+    next
+
+
+*/
+
+defvar "_IL",3,,_IL,0
+defword "INTERPRET",9,,INTERPRET
+    .int WORD, TWODUP           /* ( addr w addr w ) */
+    .int FIND, DUP              /* ( addr w d-addr d-addr ) */
+    .int ZBRANCH, +5
+    .int NROT, TWODROP, TCFA, EXECUTE
+    .int DROP, NUMBER, DROP, EXIT
+    
+
+
+defcode "INTERPREf",9,,INTERPREf
     bl actual_word
 
     ldr r10, =literal_mode

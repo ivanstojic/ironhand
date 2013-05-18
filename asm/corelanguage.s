@@ -24,7 +24,7 @@ defcode "EXIT",4,,EXIT
 defword "QUIT",4,,QUIT
     .int RZ, RSPSTORE
     .int INTERPRET
-    .int BRANCH, -8
+    .int BRANCH, -2
 
 
 defvar "S0",2,,SZ
