@@ -68,7 +68,7 @@ defword "INTERPRET",9,,INTERPRET
     .int FIND, DUP              /* ( addr w d-addr d-addr ) */
     .int ZBRANCH, +5
     .int NROT, TWODROP, TCFA, EXECUTE
-    .int DROP, NUMBER, DROP, EXIT
+    .int DROP, NUMBER, TWODROP, EXIT
     
 
 

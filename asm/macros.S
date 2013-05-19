@@ -30,6 +30,7 @@
 .set F_LENMASK,0x1f
 .set F_NOIMM_MASK, F_HIDDEN | F_LENMASK
 
+
 /* Initializing the chain of forth word links. */
 /*
 .ifndef link
