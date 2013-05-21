@@ -19,7 +19,7 @@ hello_and_echo_forever:
     .int TELL
 
     .int WORD, TELL
-    .int LIT, 10, EMIT
+    .int LIT, 10, EMIT  /* newline */
     .int BRANCH, -6
 
 test_find:
@@ -37,3 +37,4 @@ roundabout_test:
 
 bootstrap:
     .int QUIT
+

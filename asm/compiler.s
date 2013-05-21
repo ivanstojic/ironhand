@@ -66,9 +66,9 @@ defvar "_IL",3,,_IL,0
 defword "INTERPRET",9,,INTERPRET
     .int WORD, TWODUP           /* ( addr w addr w ) */
     .int FIND, DUP              /* ( addr w d-addr d-addr ) */
-    .int ZBRANCH, +5
-    .int NROT, TWODROP, TCFA, EXECUTE
-    .int DROP, NUMBER, TWODROP, EXIT
+    .int ZBRANCH, +6
+    .int NROT, TWODROP, TCFA, EXECUTE, EXIT
+    .int DROP, NUMBER, DROP, EXIT
     
 
 
