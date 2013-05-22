@@ -69,9 +69,9 @@ defword ">DFA",4,,TDFA
 /* ( a-addr w -- ) create dict entry header of name at a-addr with len w, update HERE/LATEST */
 defcode "CREATE",6,,CREATE
     pop {r0, r1} 
-    ldr r2, =var_HERE
+    ldr r2, var_HERE
     push {r2}
-    ldr r3, =var_LATEST
+    ldr r3, var_LATEST
 
     str r3, [r2], #4        /* link to previous entry through var_LATEST */
     strb r0, [r2], #1       /* word length + flags */
@@ -88,10 +88,10 @@ defcode "CREATE",6,,CREATE
 
     add r2, #3
     and r2, #~3
-    ldr r7, var_HERE
+    ldr r7, =var_HERE
     str r2, [r7]            /* set var_HERE from the r2 which was tracking data */
 
-    ldr r7, var_LATEST
+    ldr r7, =var_LATEST
     pop {r2}
     str r2, [r7]            /* set var_LATEST to wherever var_HERE pointed at the start */
 
@@ -106,8 +106,8 @@ defcode ",",1,,COMMA
 
 .global actual_comma
 actual_comma:
-    ldr r1, var_HERE
-    ldr r2, [r1]
+    ldr r1, =var_HERE
+    ldr r2, var_HERE
     str r0, [r2], #4
     str r2, [r1] 
 
@@ -160,6 +160,4 @@ defword "HIDE",4,,HIDE
 defvar "HERE",4,,HERE,end_of_precompiled_code
 defvar "LATEST",6,,LATEST,link
 
-/* Just a helpful label so objdump constants look prettier */
-ironhand_end:
 
