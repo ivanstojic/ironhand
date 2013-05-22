@@ -1,2 +1,5 @@
 target remote :1234
+si 6
+layout src
+layout regs
 
