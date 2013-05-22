@@ -33,32 +33,15 @@ defcode "'",1,,TICK
     push {r0}
     NEXT
 
+defword "RECURSE",7,F_IMMED,RECURSE
+    .int LATEST, FETCH, COMMA
+    .int EXIT
 
 /* ( w -- ) execution is transfered to forth direct threading code at w */
 defcode "EXECUTE",7,,EXECUTE
     pop {r0}
     ldr r1, [r0]
     bx r1
-
-/*
-
-    rijec = ucitaj rijec
-    pronadji u rijecniku
-
-    ako je rijec nadjena
-        nadji njezin xt
-        izvrsi ga
-
-    inace
-        pokusaj parsati broj
-
-        ako je broj parsan
-            gurni ga na stack
-
-    next
-
-
-*/
 
 defword "INTERPRET",9,,INTERPRET
     .int WORD, TWODUP           /* ( addr w addr w ) */
@@ -72,7 +55,9 @@ defword "INTR-WORD",9,,INTR_WORD
     .int NROT, TWODROP
     .int STATE, FETCH
     .int ZBRANCH, (1f-.)/4
-    .int TCFA, COMMA, EXIT /* compile state */
+        .int DUP, INCR4, FETCHBYTE, LIT, F_IMMED, LAND, ZEQU        /* compile state, check if word is immed */
+        .int ZBRANCH, (1f-.)/4
+            .int TCFA, COMMA, EXIT /* compile and not immediate */
 1:  .int TCFA, EXECUTE, EXIT /* interpret state */
 
 defword "INTR-NUM",8,,INTR_NUM
