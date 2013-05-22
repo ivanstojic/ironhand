@@ -14,11 +14,9 @@
     bx r1
 .endm
 
-
 .macro PUSHRSP reg
     str \reg, [r11, #-4]!
 .endm
-
 
 .macro POPRSP reg
     ldr \reg, [r11], #4
