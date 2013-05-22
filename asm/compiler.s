@@ -69,11 +69,11 @@ defword "INTERPRET",9,,INTERPRET
     
 /* ( s-addr w d-addr ) handles REPL for cases when we actually have a word */
 defword "INTR-WORD",9,,INTR_WORD
-    .int NROT, TWODROP, TCFA
+    .int NROT, TWODROP
     .int STATE, FETCH
     .int ZBRANCH, (1f-.)/4
-    .int COMMA, EXIT /* compile state */
-1:  .int EXECUTE, EXIT /* interpret state */
+    .int TCFA, COMMA, EXIT /* compile state */
+1:  .int TCFA, EXECUTE, EXIT /* interpret state */
 
 defword "INTR-NUM",8,,INTR_NUM
     .int DROP, NUMBER, DROP
