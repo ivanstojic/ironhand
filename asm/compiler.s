@@ -1,16 +1,15 @@
 defvar "STATE",5,,STATE,0       /* 0 - immediate, 1 - compile */
 
-defcode "[",1,F_IMMED,LBRAC
-    mov r0, #0
-    str r0, var_STATE
-    NEXT
 
+defword "[",1,F_IMMED,LBRAC
+    .int LIT, 0
+    .int STATE, STORE
+    .int EXIT
 
-defcode "]",1,,RBRAC
-    mov r0, #1
-    str r0, var_STATE
-    NEXT
-
+defword "]",1,,RBRAC
+    .int LIT, 1
+    .int STATE, STORE
+    .int EXIT
 
 defword ":",1,,COLON
     .int WORD
@@ -43,15 +42,15 @@ defcode "EXECUTE",7,,EXECUTE
     ldr r1, [r0]
     bx r1
 
-defword "INTERPRET",9,,INTERPRET
+defword "INTE0",9,,INTE0
     .int WORD, TWODUP           /* ( addr w addr w ) */
     .int FIND, DUP              /* ( addr w d-addr d-addr ) */
     .int ZBRANCH, (1f-.)/4       
-    .int INTR_WORD, EXIT                  /* word found in dictionary */
-1:  .int INTR_NUM, EXIT
+    .int INTE0_WORD, EXIT                  /* word found in dictionary */
+1:  .int INTE0_NUM, EXIT
     
 /* ( s-addr w d-addr ) handles REPL for cases when we actually have a word */
-defword "INTR-WORD",9,,INTR_WORD
+defword "INTE0-WORD",9,,INTE0_WORD
     .int NROT, TWODROP
     .int STATE, FETCH
     .int ZBRANCH, (1f-.)/4
@@ -60,7 +59,7 @@ defword "INTR-WORD",9,,INTR_WORD
             .int TCFA, COMMA, EXIT /* compile and not immediate */
 1:  .int TCFA, EXECUTE, EXIT /* interpret state */
 
-defword "INTR-NUM",8,,INTR_NUM
+defword "INTE0-NUM",8,,INTE0_NUM
     .int DROP, NUMBER, DROP
     .int STATE, FETCH
     .int ZBRANCH, (1f-.)/4

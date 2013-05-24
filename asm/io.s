@@ -1,11 +1,10 @@
 defcode "EMIT",4,,EMIT
+    pop {r0}
     bl actual_emit
     NEXT
 
 .global actual_emit
 actual_emit:
-    pop {r0}
-
     ldr r1, UART0DR
     strb r0, [r1]
 
@@ -24,13 +23,14 @@ actual_key:
     ldr r2, UART0DR
     ldr r3, UART0FR
 
-1:  ldrb r1, [r3]
+1:  
+    ldrb r1, [r3]
     and r1, r1, #0x10
     cmp r1, #0
     bne 1b
 
     ldrb r0, [r2]
-    strb r0, [r2]
+    /*strb r0, [r2] no local echo*/
     pop {r1-r3}
 
     bx lr
@@ -49,8 +49,13 @@ actual_word:
 1:
     bl actual_key
     cmp r0, #'\\'
-    beq 3f
+    beq 4f
+
     cmp r0, #' '
+    beq 1b
+    cmp r0, #10
+    beq 1b
+    cmp r0, #13
     beq 1b
     
     ldr r1, =word_buffer
@@ -59,8 +64,15 @@ actual_word:
     strb r0, [r1], #1
     bl actual_key
     cmp r0, #' '
-    bne 2b
+    beq 3f
+    cmp r0, #10
+    beq 3f
+    cmp r0, #13
+    beq 3f
+
+    b 2b
     
+3:
     mov r0, r1
     ldr r1, =word_buffer
     sub r0, r1
@@ -68,11 +80,14 @@ actual_word:
     pop {lr}
     bx lr
 
-3:
+4:
     bl actual_key
-    cmp r1, #'\n'
-    bne 3b
-    b 1b
+    cmp r0, #10
+    beq 1b
+    cmp r0, #13
+    beq 1b
+
+    b 4b
         
 
 word_buffer:
