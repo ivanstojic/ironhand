@@ -1,3 +1,8 @@
+defword "CHAR",4,,CHAR
+    .int WORD, DROP, FETCHBYTE
+    .int EXIT 
+
+
 defcode "EMIT",4,,EMIT
     pop {r0}
     bl actual_emit
