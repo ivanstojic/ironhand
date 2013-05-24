@@ -38,26 +38,16 @@ actual_find:
 3:
     bx lr                       /* there's a result in r2, either 0x0 or a real ptr */
 
-
-/* ( a-addr -- a-addr2 ) a-addr2 is the pointer to CFA of dict word at a-addr */
-defcode ">CFA",4,,TCFA
-    pop {r0}
-    bl actual_tcfa
-    push {r0}
+defcode "-MARK-",6,,MARK
     NEXT
 
-.global actual_tcfa
-actual_tcfa:
-    add r0, #4          /* skip link to previous entry */
-    ldrb r1, [r0], #1   /* pick up flag+len, move over that */
-    mov r2, #F_LENMASK
-    and r1, r2          /* strip flags off the length */
-
-    add r0, r1          /* move by length bytes forward */
-    add r0, #3          /* and balign 4 the address */
-    and r0, #~3
-
-    bx lr
+/* ( a-addr -- a-addr2 ) a-addr2 is the pointer to CFA of dict word at a-addr */
+defword ">CFA",4,,TCFA
+    .int INCR4, DUP, FETCHBYTE
+    .int LIT, F_LENMASK, LAND, ADD
+    .int LIT, 4, ADD
+    .int LIT, -4, MARK, LAND
+    .int EXIT
 
 
 /* ( a-addr -- a-addr2 ) a-addr2 is the pointer to first DFA of dict word at a-addr */
