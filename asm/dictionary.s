@@ -46,7 +46,7 @@ defword ">CFA",4,,TCFA
     .int INCR4, DUP, FETCHBYTE
     .int LIT, F_LENMASK, LAND, ADD
     .int LIT, 4, ADD
-    .int LIT, -4, MARK, LAND
+    .int LIT, ~3, MARK, LAND
     .int EXIT
 
 
@@ -89,19 +89,12 @@ defcode "CREATE",6,,CREATE
 
 
 /* ( w -- ) w is the word to store at HERE, then increments HERE */
-defcode ",",1,,COMMA
-    pop {r0}
-    bl actual_comma
-    NEXT
-
-.global actual_comma
-actual_comma:
-    ldr r1, =var_HERE
-    ldr r2, var_HERE
-    str r0, [r2], #4
-    str r2, [r1] 
-
-    bx lr
+defword ",",1,,COMMA
+    .int HERE, STORE
+    .int HERE, FETCH
+    .int LIT, 4, ADD
+    .int HERE, STORE
+    .int EXIT
 
 
 /* ( -- ) the last defined word gets its IMMEDIATE flag toggled */
