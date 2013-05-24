@@ -1,0 +1,2 @@
+: NEGATE 0 SWAP - ;
+
