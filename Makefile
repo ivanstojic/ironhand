@@ -21,6 +21,10 @@ ASMOBJ:=asm/startup.o asm/forth.o
 
 # Housekeeping and running/debugging
 
+.PHONY: repl
+repl: ironhand.img
+	./repl forth/ironhand.fpp | make run
+
 .PHONY: run
 run: ironhand.img
 	qemu-system-arm -M versatilepb -m 128M -nographic -kernel $<

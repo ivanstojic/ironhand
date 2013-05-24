@@ -1,0 +1,19 @@
+#!/bin/bash
+
+gsleep 0.2s
+
+if [ "$#" != "0" ]; then
+    ./include $*
+fi
+
+line="-start-"
+while [ "$line" != ".q" ]; do
+    read -p $'\n> ' line
+    if [ "$line" != ".q" ]; then
+        echo "$line"
+        gsleep 0.05s
+    else
+        echo $'\x01x'
+    fi
+done
+

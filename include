@@ -1,0 +1,9 @@
+#!/usr/bin/perl -n
+
+chomp;
+if ($_ =~ /^#include "(.*)"/) {
+    system($0, $1);
+} else {
+    print $_, "\n";
+}
+
