@@ -23,10 +23,11 @@ defcode "EXIT",4,,EXIT
 
 defword "QUIT",4,,QUIT
     .int RZ, RSPSTORE
-    .int INTERPRET
+    .int INTE0
     .int BRANCH, -2
 
 
+/* warning - broken */
 defvar "S0",2,,SZ
 
 defconst "FAVCHAR",7,,FAVCHAR,'?'
