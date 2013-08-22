@@ -21,6 +21,10 @@ defcode "EXIT",4,,EXIT
     NEXT
 
 
+defcode "-MARK-",6,,MARK
+    NEXT
+
+
 defword "QUIT",4,,QUIT
     .int RZ, RSPSTORE
     .int INTE0

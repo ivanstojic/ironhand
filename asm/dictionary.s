@@ -38,15 +38,12 @@ actual_find:
 3:
     bx lr                       /* there's a result in r2, either 0x0 or a real ptr */
 
-defcode "-MARK-",6,,MARK
-    NEXT
-
 /* ( a-addr -- a-addr2 ) a-addr2 is the pointer to CFA of dict word at a-addr */
 defword ">CFA",4,,TCFA
     .int INCR4, DUP, FETCHBYTE
     .int LIT, F_LENMASK, LAND, ADD
     .int LIT, 4, ADD
-    .int LIT, ~3, MARK, LAND
+    .int LIT, ~3, LAND
     .int EXIT
 
 
@@ -90,7 +87,7 @@ defcode "CREATE",6,,CREATE
 
 /* ( w -- ) w is the word to store at HERE, then increments HERE */
 defword ",",1,,COMMA
-    .int HERE, STORE
+    .int HERE, FETCH, STORE
     .int HERE, FETCH
     .int LIT, 4, ADD
     .int HERE, STORE
