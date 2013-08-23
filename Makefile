@@ -27,11 +27,11 @@ repl: ironhand.img
 
 .PHONY: run
 run: ironhand.img
-	qemu-system-arm -M versatilepb -m 128M -nographic -kernel $<
+	qemu-system-arm -M versatilepb -m 128M -nographic -kernel $< -net nic -net tap,ifname=tap0,script=no
 
 .PHONY: debug
 debug: ironhand.img
-	qemu-system-arm -s -S -M versatilepb -m 128M -nographic -kernel $<
+	qemu-system-arm -s -S -M versatilepb -m 128M -nographic -kernel $< -net nic -net tap,ifname=tap0,script=no
 
 .PHONY: clean
 clean:
