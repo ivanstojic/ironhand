@@ -31,7 +31,6 @@ defword "QUIT",4,,QUIT
     .int BRANCH, -2
 
 
-/* warning - broken */
 defvar "S0",2,,SZ
 
 defconst "FAVCHAR",7,,FAVCHAR,'?'
