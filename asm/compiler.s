@@ -36,7 +36,7 @@ defword "RECURSE",7,F_IMMED,RECURSE
     .int LATEST, FETCH, COMMA
     .int EXIT
 
-/* ( w -- ) execution is transfered to forth direct threading code at w */
+/* ( w -- ) execution is transfered to forth direct threading code pointed to by value at w */
 defcode "EXECUTE",7,,EXECUTE
     pop {r0}
     ldr r1, [r0]
