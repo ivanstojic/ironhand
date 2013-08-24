@@ -156,7 +156,7 @@ actual_number:
 
 
 /* ( a-addr w -- ) outputs w chars of string at a-addr */
-defcode "TELL",4,,TELL
+defcode "TYPE",4,,TYPE
     pop {r0, r1}
 
     ldr r2, UART0DR
