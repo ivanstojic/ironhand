@@ -16,9 +16,9 @@ hello_and_echo_forever:
     .int 7
     .ascii "Forth!\n"
     .balign 4
-    .int TELL
+    .int TYPE
 
-    .int WORD, TELL
+    .int WORD, TYPE
     .int LIT, 10, EMIT  /* newline */
     .int BRANCH, -6
 
@@ -32,7 +32,7 @@ test_find:
 roundabout_test:
     .int LITSTRING, 4
     .ascii "WORD"
-    .int FIND, TCFA, EXECUTE, TELL
+    .int FIND, TCFA, EXECUTE, TYPE
     .int BRANCH, -8
 
 bootstrap:
