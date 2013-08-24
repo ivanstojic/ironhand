@@ -23,7 +23,7 @@ ASMOBJ:=asm/startup.o asm/forth.o
 
 .PHONY: repl
 repl: ironhand.img
-	./repl forth/ironhand.fpp | make run
+	./repl forth/arm926ejs.fpp | make run
 
 .PHONY: run
 run: ironhand.img
