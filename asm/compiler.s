@@ -32,10 +32,6 @@ defcode "'",1,,TICK
     push {r0}
     NEXT
 
-defword "RECURSE",7,F_IMMED,RECURSE
-    .int LATEST, FETCH, COMMA
-    .int EXIT
-
 /* ( w -- ) execution is transfered to forth direct threading code pointed to by value at w */
 defcode "EXECUTE",7,,EXECUTE
     pop {r0}
