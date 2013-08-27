@@ -16,3 +16,9 @@ defcode "4+",2,,INCR4
     push {r0}
     NEXT
 
+defcode "-",1,,SUB
+    pop {r0, r1}
+    sub r1, r0
+    push {r1}
+    NEXT
+
