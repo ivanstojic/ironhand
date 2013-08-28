@@ -43,7 +43,7 @@ defword "INTE0",9,,INTE0
     .int FIND, DUP              /* ( addr w d-addr d-addr ) */
     .int ZBRANCH, (1f-.)/4       
     .int INTE0_WORD, EXIT                  /* word found in dictionary */
-1:  .int INTE0_NUM, EXIT
+1:  .int DROP, INTE0_NUM, EXIT             /* word not found, drop the other d-addr, try to parse num */
     
 /* ( s-addr w d-addr ) handles REPL for cases when we actually have a word */
 defword "INTE0-WORD",9,,INTE0_WORD
@@ -55,12 +55,13 @@ defword "INTE0-WORD",9,,INTE0_WORD
             .int TCFA, COMMA, EXIT /* compile and not immediate */
 1:  .int TCFA, EXECUTE, EXIT /* interpret state */
 
+/* ( s-addr w ) handles REPL for cases when we couldn't parse word, so try to parse a number now */
 defword "INTE0-NUM",8,,INTE0_NUM
-    .int DROP, NUMBER, DROP
+    .int NUMBER, DROP
     .int STATE, FETCH
-    .int ZBRANCH, (1f-.)/4
+    .int ZBRANCH, (2f-.)/4
     .int TICK, LIT, COMMA, COMMA, EXIT
-1:  .int EXIT
+2:  .int EXIT
 
 
 
