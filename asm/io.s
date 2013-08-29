@@ -98,6 +98,48 @@ actual_word:
 word_buffer:
 	.space 32
 
+
+defcode ".S",2,,PSTACK
+    ldr r4, var_S0
+    mov r5, sp
+
+1:  
+    bl one_off
+    mov r0, #'\n'
+    bl actual_emit
+    cmp r5, r4
+    ble 1b
+
+    NEXT
+
+
+one_off:
+    ldr r6, [r5], #4
+
+    cmp r6, #0
+    movge r0, #'.'
+    bge 1f
+
+    mov r0, #'-'
+    push {lr}
+    bl actual_emit
+    pop {lr}
+
+    mov r7, #-1
+    mul r6, r7
+
+    mov r0, #'.'
+
+1:  cmp r6, #0
+    bxeq lr
+    push {lr}
+    bl actual_emit
+    pop {lr}
+    sub r6, #1
+    b 1b
+    
+
+
 /* What number base are we using? */
 defvar "BASE",4,,BASE,10
 
@@ -138,15 +180,20 @@ actual_number:
     
 3:
     cmp r3, #'0'                 /* check for out of range digits */
-    blo 5f
+    blo 4f
     cmp r3, #'9'
-    bhi 5f
+    bhi 4f
 
     sub r3, #'0'
     mul r4, r7
     add r4, r3
 
     b 2b
+
+4:
+    add r5, r0, #1
+    mul r4, r6
+    bx lr
 
 5:
     mov r5, r0
