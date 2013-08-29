@@ -110,7 +110,7 @@ defcode ".S",2,,PSTACK
     cmp r5, r4
     ble 1b
 
-    mov r0, #'_'
+    mov r0, #'<'
     bl actual_emit
     mov r0, #'\n'
     bl actual_emit
