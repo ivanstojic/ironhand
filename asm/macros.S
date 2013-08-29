@@ -99,6 +99,7 @@ var_\name :
     ldr r0, const_\label
     push {r0}
     NEXT
+.global const_\label
 const_\label:
     .int \value
 .endm
