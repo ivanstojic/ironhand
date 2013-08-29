@@ -7,5 +7,7 @@
 : THEN IMMEDIATE
   DUP
   HERE @ SWAP -
+  >CELL
   SWAP !
 ;
+
