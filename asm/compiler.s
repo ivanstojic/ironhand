@@ -57,11 +57,31 @@ defword "INTE0-WORD",9,,INTE0_WORD
 
 /* ( s-addr w ) handles REPL for cases when we couldn't parse word, so try to parse a number now */
 defword "INTE0-NUM",8,,INTE0_NUM
-    .int NUMBER, DROP
+    .int TWODUP, NUMBER
+    .int ZBRANCH, (1f-.)/4
+    .int INTE0_NUM_ERR
+    .int EXIT
+1:  .int NROT, TWODROP                      /* pull the (s-addr w) over the parsed number, and drop them */
     .int STATE, FETCH
     .int ZBRANCH, (2f-.)/4
     .int TICK, LIT, COMMA, COMMA, EXIT
 2:  .int EXIT
 
 
+defword "INTE0-NUM-ERR",12,,INTE0_NUM_ERR
+    .int DROP
+
+    .int LITSTRING, 16
+    .ascii "\nError parsing: "
+    .balign 4
+
+    .int TYPE, TYPE
+
+    .int LITSTRING, 14
+    .ascii ". Continuing.\n"
+    .balign 4
+
+    .int TYPE
+
+    .int EXIT
 
