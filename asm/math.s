@@ -22,3 +22,9 @@ defcode "-",1,,SUB
     push {r1}
     NEXT
 
+defcode ">CELL",5,,TOCELL
+    pop {r0}
+    mov r0, r0, LSR #2
+    push {r0}
+    NEXT
+
