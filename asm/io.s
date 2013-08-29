@@ -103,13 +103,18 @@ defcode ".S",2,,PSTACK
     ldr r4, var_S0
     mov r5, sp
 
-1:  
+    cmp r5, r4
+    bge 2f
+
+1:
     bl one_off
     mov r0, #'\n'
     bl actual_emit
     cmp r5, r4
-    ble 1b
+    blt 1b
 
+
+2:
     mov r0, #'<'
     bl actual_emit
     mov r0, #'\n'
