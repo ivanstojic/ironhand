@@ -113,7 +113,6 @@ defcode ".S",2,,PSTACK
     cmp r5, r4
     blt 1b
 
-
 2:
     mov r0, #'<'
     bl actual_emit
@@ -170,6 +169,7 @@ actual_number:
     mov r5, #0                   /* error offset is 0 */
     mov r6, #1                   /* negative flag */
     ldr r7, var_BASE
+    mov r8, r0                   /* stash length for later */
 
     cmp r0, #0 
     bxeq lr                      /* if the length is zero, early abort */
@@ -200,8 +200,10 @@ actual_number:
 
     b 2b
 
+    /* this exit happens when parsing failed */
 4:
-    add r5, r0, #1
+    sub r5, r8, r0
+    sub r5, #1
     mul r4, r6
     bx lr
 
