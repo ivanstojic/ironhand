@@ -31,7 +31,7 @@ defword "QUIT",4,,QUIT
     .int BRANCH, -2
 
 
-defvar "S0",2,,SZ
+defvar "S0",2,,SZ,stack_top
 
 defconst "FAVCHAR",7,,FAVCHAR,'?'
 defconst "VERSION",7,,VERSION,0xDEAD
