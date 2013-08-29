@@ -202,8 +202,7 @@ actual_number:
 
     /* this exit happens when parsing failed */
 4:
-    sub r5, r8, r0
-    sub r5, #1
+    add r5, r0, #1
     mul r4, r6
     bx lr
 
